@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto+Mono&display=swap');
+
+body {
+    background-color: #212922;
+}
+
+#hack-board {
+    margin: auto;
+    width: 840px;
+    height: 840px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #294936;
+    border-radius: 5px;
+}
+
+.tile {
+    height: 100px;
+    width: 100px;
+    margin: 10px 10px;
+    background-color: #119822;
+    cursor: pointer;
+}
+
+.number {
+    text-align: center;
+    line-height: 25px;
+    font-size: 36px;
+    font-family: 'Roboto Mono', monospace;
+    color: #fff;
+    user-select: none;
+}
