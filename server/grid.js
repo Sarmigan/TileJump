@@ -1,4 +1,5 @@
 function createGrid(rowSize, colSize){
+    //UPDATE PATHING!! TOP LEFT BOTTOM RIGHT
     var grid = [];
     
     for(var i=0; i<rowSize; i++){

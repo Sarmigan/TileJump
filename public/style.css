@@ -6,15 +6,17 @@ body {
 
 #hack-board {
     margin: auto;
+    margin-top: 20px;
     width: 840px;
     height: 840px;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
     background-color: #294936;
     border-radius: 5px;
 }
 
-.tile {
+.tile, .crossed-tile {
     height: 100px;
     width: 100px;
     margin: 10px 10px;
@@ -22,7 +24,15 @@ body {
     cursor: pointer;
 }
 
-.number {
+.marked-tile {
+    height: 100px;
+    width: 100px;
+    margin: 10px 10px;
+    background-color: #7be41a;
+    cursor: pointer;
+}
+
+.number, .points {
     text-align: center;
     line-height: 25px;
     font-size: 36px;
