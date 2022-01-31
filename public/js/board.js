@@ -1,11 +1,21 @@
 const rowSize = 7;
-const columnSize = 7;
+const colSize = 7;
+var currentTile = [1, 0];
+
+async function clearBoard(){
+    const board = document.getElementById('hack-board');
+    while (board.firstChild) {
+        board.removeChild(board.lastChild);
+    }
+    currentTile = [1, 0];
+    console.log('Board cleared');
+}
 
 function createBoard(grid){
     const board = document.getElementById('hack-board');
 
     for(let i = 0; i<rowSize; i++){
-        for(let j = 0; j<columnSize; j++){
+        for(let j = 0; j<colSize; j++){
             if(i==1 & j==0){
                 const tile = document.createElement('div');
                 tile.setAttribute('class', 'marked-tile');

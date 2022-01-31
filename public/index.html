@@ -13,12 +13,18 @@
     <div id="hack-board"></div>
     <script>
         var socket = io(); 
-
+        async function newBoard(){
+            const clear = await clearBoard();
+            console.log('Requesting grid');
+            socket.emit('req-grid');
+        }
+        
         socket.emit('req-grid');
-        socket.on('res-grid', async data=>{
+        socket.on('res-grid', data=>{
             createBoard(data.grid);
             tileInteraction();
         });
+        
     </script>
 </body>
 </html>

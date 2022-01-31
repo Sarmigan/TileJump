@@ -1,7 +1,12 @@
 var el = [];
 var tiles = [];
-var colSize = 7;
-var currentTile = [1, 0];
+
+function removeAllListeners(){
+    el.forEach(element => {
+        document.getElementById(element.id).removeEventListener('click', tileClick);
+    });
+    console.log('Removed all click listeners');
+}
 
 function arrayEquals(x, y) {
     return x.length === y.length && x.every((val, index) => val === y[index]);
@@ -15,93 +20,100 @@ const tileClick = function (){
         var isPathBlocked = false;
         for (var i = currentTile[0]+currentSkip; i>currentTile[0]; i--)
         {
-            var tempEl = document.getElementById(tiles[i][currentTile[1]].id);
-            if(tempEl.className == 'crossed-tile' || tempEl.className == 'marked-tile'){
+            var tile = document.getElementById(tiles[i][currentTile[1]].id);
+            if(tile.className == 'crossed-tile' || tile.className == 'marked-tile'){
                 isPathBlocked = true;
             }
         }
         if(!isPathBlocked){
-            for (var i = currentTile[0]+currentSkip; i>currentTile[0]; i--)
+            for (var i = currentTile[0]+1; i<currentTile[0]+currentSkip; i++)
             {
-                var tempEl = document.getElementById(tiles[i][currentTile[1]].id);
-                tempEl.setAttribute('class', 'crossed-tile');
+                var tile = document.getElementById(tiles[i][currentTile[1]].id);
+                tile.setAttribute('class', 'crossed-tile');
             }
             currentTile = targetTile;
             this.setAttribute('class', 'marked-tile');
-            console.log('Valid Move');
         } else{
-            console.log('Invalid Move');
+            this.setAttribute('class', 'invalid-tile');
+            removeAllListeners();
+            newBoard();
         }
     } else if(arrayEquals(targetTile, [currentTile[0]-currentSkip, currentTile[1]])){
         var isPathBlocked = false;
         for (var i = currentTile[0]-currentSkip; i<currentTile[0]; i++)
         {
-            var tempEl = document.getElementById(tiles[i][currentTile[1]].id);
-            if(tempEl.className == 'crossed-tile' || tempEl.className == 'marked-tile'){
+            var tile = document.getElementById(tiles[i][currentTile[1]].id);
+            if(tile.className == 'crossed-tile' || tile.className == 'marked-tile'){
                 isPathBlocked = true;
             }
         }
         if(!isPathBlocked){
-            for (var i = currentTile[0]-currentSkip; i<currentTile[0]; i++)
+            for (var i = currentTile[0]+1; i>currentTile[0]+currentSkip; i--)
             {
-                var tempEl = document.getElementById(tiles[i][currentTile[1]].id);
-                tempEl.setAttribute('class', 'crossed-tile');
+                var tile = document.getElementById(tiles[i][currentTile[1]].id);
+                tile.setAttribute('class', 'crossed-tile');
             }
             currentTile = targetTile;
             this.setAttribute('class', 'marked-tile');
-            console.log('Valid Move');
         } else{
-            isPathBlocked = true;
+            this.setAttribute('class', 'invalid-tile');
+            removeAllListeners();
+            newBoard();
         }
     } else if(arrayEquals(targetTile, [currentTile[0], currentTile[1]+currentSkip])){
         var isPathBlocked = false;
         for (var i = currentTile[1]+currentSkip; i>currentTile[1]; i--)
         {
-            var tempEl = document.getElementById(tiles[currentTile[0]][i].id);
-            if(tempEl.className == 'crossed-tile' || tempEl.className == 'marked-tile'){
+            var tile = document.getElementById(tiles[currentTile[0]][i].id);
+            if(tile.className == 'crossed-tile' || tile.className == 'marked-tile'){
                 isPathBlocked = true;
             }
         }
         if(!isPathBlocked){
-            for (var i = currentTile[1]+currentSkip; i>currentTile[1]; i--)
+            for (var i = currentTile[1]+1; i<currentTile[1]+currentSkip; i++)
             {
-                var tempEl = document.getElementById(tiles[currentTile[0]][i].id);
-                tempEl.setAttribute('class', 'crossed-tile');
+                var tile = document.getElementById(tiles[currentTile[0]][i].id);
+                tile.setAttribute('class', 'crossed-tile');
             }
             currentTile = targetTile;
             this.setAttribute('class', 'marked-tile');
-            console.log('Valid Move');
         } else {
-            console.log('Invalid Move');
+            this.setAttribute('class', 'invalid-tile');
+            removeAllListeners();
+            newBoard();
         }
     } else if(arrayEquals(targetTile, [currentTile[0], currentTile[1]-currentSkip])){
         var isPathBlocked = false;
         for (var i = currentTile[1]-currentSkip; i<currentTile[1]; i++)
         {
-            var tempEl = document.getElementById(tiles[currentTile[0]][i].id);
-            if(tempEl.className == 'crossed-tile' || tempEl.className == 'marked-tile'){
+            var tile = document.getElementById(tiles[currentTile[0]][i].id);
+            if(tile.className == 'crossed-tile' || tile.className == 'marked-tile'){
                 isPathBlocked = true;
             }
         }
         if(!isPathBlocked){
-            for (var i = currentTile[1]-currentSkip; i<currentTile[1]; i++)
+            for (var i = currentTile[1]+1; i>currentTile[1]-currentSkip; i--)
             {
-                var tempEl = document.getElementById(tiles[currentTile[0]][i].id);
-                tempEl.setAttribute('class', 'crossed-tile');
+                var tile = document.getElementById(tiles[currentTile[0]][i].id);
+                tile.setAttribute('class', 'crossed-tile');
             }
             currentTile = targetTile;
             this.setAttribute('class', 'marked-tile');
-            console.log('Valid Move');
         } else{
-            console.log('Invalid Move');
+            this.setAttribute('class', 'invalid-tile');
+            removeAllListeners();
+            newBoard();
         }
     } else {
-        console.log('Invalid Move');
+        this.setAttribute('class', 'invalid-tile');
+        removeAllListeners();
+        newBoard();
     }
 }
 
 function tileInteraction(){
     const board = document.getElementById('hack-board');
+    tiles = [];
     el = Array.from(board.childNodes);
 
     el.forEach(element => {
@@ -115,14 +127,23 @@ function tileInteraction(){
     
     const endTile = document.getElementById(el[el.length - 1].id);
     const mutationConfig = { attributes: true, childList: false, subtree: false };
-
-    const observer = new MutationObserver((mutationsList, observer)=>{
+    
+    const mutationCallback = (mutationsList, observer)=>{
         for(const mutation of mutationsList){
-            if(mutation.type === "attributes"){
-                console.log('solved');
-                location.reload();
+            if(mutation.type == "attributes"){
+                if(mutation.target.className === 'invalid-tile'){
+                    console.log('Failed');
+                }
+                if((mutation.target.id == el[el.length-1].id) && (mutation.target.className === 'marked-tile')){
+                    console.log('Solved');
+                    newBoard();
+                }
             }
         }
-    });
-    observer.observe(endTile, mutationConfig);
+    }
+
+    const observer = new MutationObserver(mutationCallback);
+    for(const element of el){
+        observer.observe(element, mutationConfig);
+    }
 }

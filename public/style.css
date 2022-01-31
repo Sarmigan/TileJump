@@ -32,6 +32,15 @@ body {
     cursor: pointer;
 }
 
+.invalid-tile {
+    height: 100px;
+    width: 100px;
+    margin: 10px 10px;
+    background-color: #cf1111;
+    cursor: pointer;
+}
+
+
 .number, .points {
     text-align: center;
     line-height: 25px;
