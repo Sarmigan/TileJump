@@ -112,4 +112,17 @@ function tileInteraction(){
         var temp = el.slice(i, i + colSize);
         tiles.push(temp);
     }
+    
+    const endTile = document.getElementById(el[el.length - 1].id);
+    const mutationConfig = { attributes: true, childList: false, subtree: false };
+
+    const observer = new MutationObserver((mutationsList, observer)=>{
+        for(const mutation of mutationsList){
+            if(mutation.type === "attributes"){
+                console.log('solved');
+                location.reload();
+            }
+        }
+    });
+    observer.observe(endTile, mutationConfig);
 }
