@@ -1,5 +1,6 @@
 var el = [];
 var tiles = [];
+var boardTimeout;
 
 function removeAllListeners(){
     el.forEach(element => {
@@ -37,6 +38,7 @@ const tileClick = async function (){
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
             const timeout = await new Promise(resolve => setTimeout(()=>{
+                clearTimeout(boardTimeout);
                 newBoard(3);
             }, 2000));
         }
@@ -61,6 +63,7 @@ const tileClick = async function (){
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
             const timeout = await new Promise(resolve => setTimeout(()=>{
+                clearTimeout(boardTimeout);
                 newBoard(3);
             }, 2000));
         }
@@ -85,6 +88,7 @@ const tileClick = async function (){
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
             const timeout = await new Promise(resolve => setTimeout(()=>{
+                clearTimeout(boardTimeout);
                 newBoard(3);
             }, 2000));
         }
@@ -109,6 +113,7 @@ const tileClick = async function (){
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
             const timeout = await new Promise(resolve => setTimeout(()=>{
+                clearTimeout(boardTimeout);
                 newBoard(3);
             }, 2000));
         }
@@ -116,6 +121,7 @@ const tileClick = async function (){
         this.setAttribute('class', 'invalid-tile');
         removeAllListeners();
         const timeout = await new Promise(resolve => setTimeout(()=>{
+            clearTimeout(boardTimeout);
             newBoard(3);
         }, 2000));
     }
@@ -142,6 +148,7 @@ function tileInteraction(){
         for(const mutation of mutationsList){
             if(mutation.type == "attributes"){
                 if((mutation.target.id == el[el.length-1].id) && (mutation.target.className === 'marked-tile')){
+                    clearTimeout(boardTimeout);
                     newBoard(2);
                 }
             }
@@ -152,4 +159,8 @@ function tileInteraction(){
     for(const element of el){
         observer.observe(element, mutationConfig);
     }
+
+    boardTimeout = setTimeout(()=>{
+        newBoard(4);
+    }, 6000);
 }

@@ -21,7 +21,6 @@
         
         socket.on('res-grid', async data=>{
             const timeout = await new Promise(resolve => setTimeout(async ()=>{
-                const markedTile = document.getElementsByClassName('marked-tile');
                 clearBoard();
                 createBoard(data.grid);
                 const timeout = await new Promise(resolve => setTimeout(()=>{
