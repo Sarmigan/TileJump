@@ -16,7 +16,6 @@ async function clearBoard(){
         board.removeChild(board.lastChild);
     }
     currentTile = [1, 0];
-    console.log('Cleared board');
 }
 
 function createIntro(boardType){
@@ -63,5 +62,4 @@ function createBoard(grid){
             }
         }
     }
-    console.log('Created board');
 }

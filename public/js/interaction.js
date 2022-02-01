@@ -5,7 +5,6 @@ function removeAllListeners(){
     el.forEach(element => {
         document.getElementById(element.id).removeEventListener('click', tileClick);
     });
-    console.log('Removed all click listeners');
 }
 
 function arrayEquals(x, y) {
@@ -143,7 +142,6 @@ function tileInteraction(){
         for(const mutation of mutationsList){
             if(mutation.type == "attributes"){
                 if((mutation.target.id == el[el.length-1].id) && (mutation.target.className === 'marked-tile')){
-                    console.log('Solved');
                     newBoard(2);
                 }
             }

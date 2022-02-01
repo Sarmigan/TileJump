@@ -16,7 +16,6 @@
         async function newBoard(boardType){
             const clear = await clearBoard();
             createIntro(boardType);
-            console.log('Requesting grid');
             socket.emit('req-grid');
         }
         
