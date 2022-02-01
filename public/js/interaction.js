@@ -16,8 +16,22 @@ const tileClick = async function (){
     //LEFT REMOVES MARKED TILE
     var targetTile = this.id.toString().split('').map(digit => parseInt(digit, 10));
     var currentSkip = parseInt(tiles[currentTile[0]][currentTile[1]].innerText);
-
-    if(arrayEquals(targetTile, [currentTile[0]+currentSkip, currentTile[1]])){
+    if(document.getElementById(tiles[currentTile[0]][currentTile[1]].id).className == 'tile'){
+        if(arrayEquals(targetTile, [currentTile[0], currentTile[1]])){
+            this.setAttribute('class', 'marked-tile');
+            return;
+        }
+        else{
+            this.setAttribute('class', 'invalid-tile');
+            removeAllListeners();
+            const timeout = await new Promise(resolve => setTimeout(()=>{
+                clearTimeout(boardTimeout);
+                newBoard(3);
+            }, 2000));
+            return;
+        }
+    }
+    else if(arrayEquals(targetTile, [currentTile[0]+currentSkip, currentTile[1]])){
         var isPathBlocked = false;
         for (var i = currentTile[0]+currentSkip; i>currentTile[0]; i--)
         {
@@ -140,7 +154,10 @@ function tileInteraction(){
         var temp = el.slice(i, i + colSize);
         tiles.push(temp);
     }
-    
+
+    var startTile = document.getElementById(tiles[currentTile[0]][currentTile[1]].id);
+    startTile.setAttribute('class', 'tile');
+
     const endTile = document.getElementById(el[el.length - 1].id);
     const mutationConfig = { attributes: true, childList: false, subtree: false };
     

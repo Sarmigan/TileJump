@@ -41,9 +41,9 @@ function createBoard(grid){
 
     for(let i = 0; i<rowSize; i++){
         for(let j = 0; j<colSize; j++){
-            if(i==1 & j==0){
+            if(i==currentTile[0] & j==currentTile[1]){
                 const tile = document.createElement('div');
-                tile.setAttribute('class', 'marked-tile');
+                tile.setAttribute('class', 'marked-tile-blinking');
                 tile.setAttribute('id', `${i}${j}`);
                 const number = document.createElement('p');
                 number.setAttribute('class', 'number');

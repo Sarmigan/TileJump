@@ -34,6 +34,15 @@ body {
     cursor: pointer;
 }
 
+.marked-tile-blinking {
+    height: 100px;
+    width: 100px;
+    margin: 10px 10px;
+    background-color: #7be41a;
+    cursor: pointer;
+    animation: blinking 1s linear infinite;
+}
+
 .marked-tile {
     height: 100px;
     width: 100px;
@@ -67,3 +76,9 @@ body {
     color: transparent;
     user-select: none;
 }
+
+@keyframes blinking {
+    50% {
+      background-color: #119822;
+    }
+  }
