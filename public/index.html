@@ -13,18 +13,26 @@
     <div id="hack-board"></div>
     <script>
         var socket = io(); 
-        async function newBoard(){
+        async function newBoard(boardType){
             const clear = await clearBoard();
+            createIntro(boardType);
             console.log('Requesting grid');
             socket.emit('req-grid');
         }
         
-        socket.emit('req-grid');
-        socket.on('res-grid', data=>{
-            createBoard(data.grid);
-            tileInteraction();
+        socket.on('res-grid', async data=>{
+            const timeout = await new Promise(resolve => setTimeout(async ()=>{
+                const markedTile = document.getElementsByClassName('marked-tile');
+                clearBoard();
+                createBoard(data.grid);
+                const timeout = await new Promise(resolve => setTimeout(()=>{
+                    hideNumbers();
+                    tileInteraction();
+                }, 6000));
+            }, 2000));
         });
         
+        newBoard(1);
     </script>
 </body>
 </html>

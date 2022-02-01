@@ -2,13 +2,39 @@ const rowSize = 7;
 const colSize = 7;
 var currentTile = [1, 0];
 
+function hideNumbers(){
+    const numbers = Array.from(document.getElementsByClassName('number'));
+
+    numbers.forEach(element => {
+        element.setAttribute('class', 'hidden-number');
+    });
+}
+
 async function clearBoard(){
     const board = document.getElementById('hack-board');
     while (board.firstChild) {
         board.removeChild(board.lastChild);
     }
     currentTile = [1, 0];
-    console.log('Board cleared');
+    console.log('Cleared board');
+}
+
+function createIntro(boardType){
+    const board = document.getElementById('hack-board');
+    const text = document.createElement('p');
+    text.setAttribute('class', 'intro-text');
+
+    if(boardType == 1){
+        text.innerText = 'AWAITING SERVER CONNECTION';
+    } else if(boardType == 2){
+        text.innerHTML = 'SOLVED<br/>AWAITING SERVER CONNECTION';
+    } else if(boardType == 3){
+        text.innerHTML = 'FAILED<br/>AWAITING SERVER CONNECTION';
+    } else if(boardType == 4){
+        text.innerHTML = 'TIMED OUT<br/>AWAITING SERVER CONNECTION';
+    }
+
+    board.appendChild(text);
 }
 
 function createBoard(grid){
@@ -37,4 +63,5 @@ function createBoard(grid){
             }
         }
     }
+    console.log('Created board');
 }

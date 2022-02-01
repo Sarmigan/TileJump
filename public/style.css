@@ -1,7 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto+Mono&display=swap');
 
 body {
-    background-color: #212922;
+    background-color: #111111;
+}
+
+.intro-text {  
+    font-size: 36px;
+    font-family: 'Roboto Mono', monospace;
+    color: #fff;
+    text-align: center;
+    line-height: 100px;
 }
 
 #hack-board {
@@ -12,8 +20,10 @@ body {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    background-color: #294936;
+    background-color: #2b2c2b;
     border-radius: 5px;
+    justify-content: center;
+    align-items: center;
 }
 
 .tile, .crossed-tile {
@@ -40,12 +50,20 @@ body {
     cursor: pointer;
 }
 
-
 .number, .points {
     text-align: center;
     line-height: 25px;
     font-size: 36px;
     font-family: 'Roboto Mono', monospace;
     color: #fff;
+    user-select: none;
+}
+
+.hidden-number {
+    text-align: center;
+    line-height: 25px;
+    font-size: 36px;
+    font-family: 'Roboto Mono', monospace;
+    color: transparent;
     user-select: none;
 }
