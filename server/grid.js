@@ -44,7 +44,29 @@ function fillGrid(grid){
             }
             else if (temp[i][j] == 0 || temp[i][j] == 9)
             {
-                var skip = Math.floor(Math.random() * 6)+1;
+                var skip = Math.floor(Math.random() * 1000)+1;
+    
+                switch (true) {
+                    case skip <= 235: //23.5% for 1
+                        skip = 1;
+                        break;
+                    case skip <= 735: //50% for 2
+                        skip = 2;
+                        break;
+                    case skip <= 885: //15% for 3
+                        skip = 3;
+                        break;
+                    case skip <= 985: //10% for 4
+                        skip = 4;
+                        break;
+                    case skip <= 995: //1% for 5
+                        skip = 5;
+                        break;
+                    case skip <= 1000: //0.5% for 6
+                        skip = 6;
+                        break;
+                }
+                
                 temp[i][j] = skip;
             }
         }
@@ -85,7 +107,28 @@ function createPath(starty, startx, endy, endx, rowSize, colSize)
             }
 
             var dir = Math.floor(Math.random() * 4)+1;
-            var skip = Math.floor(Math.random() * 6)+1;
+            var skip = Math.floor(Math.random() * 1000)+1;
+
+            switch (true) {
+                case skip <= 235: //23.5% for 1
+                    skip = 1;
+                    break;
+                case skip <= 735: //50% for 2
+                    skip = 2;
+                    break;
+                case skip <= 885: //15% for 3
+                    skip = 3;
+                    break;
+                case skip <= 985: //10% for 4
+                    skip = 4;
+                    break;
+                case skip <= 995: //1% for 5
+                    skip = 5;
+                    break;
+                case skip <= 1000: //0.5% for 6
+                    skip = 6;
+                    break;
+            }
 
             if (dir == 1)
             {
