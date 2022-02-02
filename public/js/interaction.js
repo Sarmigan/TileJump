@@ -22,10 +22,10 @@ const tileClick = async function (){
             return;
         }
         else{
+            clearInterval(boardTimeout);
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
             const timeout = await new Promise(resolve => setTimeout(()=>{
-                clearTimeout(boardTimeout);
                 newBoard(3);
             }, 2000));
             return;
@@ -49,10 +49,10 @@ const tileClick = async function (){
             currentTile = targetTile;
             this.setAttribute('class', 'marked-tile');
         } else{
+            clearInterval(boardTimeout);
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
             const timeout = await new Promise(resolve => setTimeout(()=>{
-                clearTimeout(boardTimeout);
                 newBoard(3);
             }, 2000));
         }
@@ -74,10 +74,10 @@ const tileClick = async function (){
             currentTile = targetTile;
             this.setAttribute('class', 'marked-tile');
         } else{
+            clearInterval(boardTimeout);
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
             const timeout = await new Promise(resolve => setTimeout(()=>{
-                clearTimeout(boardTimeout);
                 newBoard(3);
             }, 2000));
         }
@@ -99,10 +99,10 @@ const tileClick = async function (){
             currentTile = targetTile;
             this.setAttribute('class', 'marked-tile');
         } else {
+            clearInterval(boardTimeout);
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
             const timeout = await new Promise(resolve => setTimeout(()=>{
-                clearTimeout(boardTimeout);
                 newBoard(3);
             }, 2000));
         }
@@ -124,18 +124,18 @@ const tileClick = async function (){
             currentTile = targetTile;
             this.setAttribute('class', 'marked-tile');
         } else{
+            clearInterval(boardTimeout);
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
             const timeout = await new Promise(resolve => setTimeout(()=>{
-                clearTimeout(boardTimeout);
                 newBoard(3);
             }, 2000));
         }
     } else {
+        clearInterval(boardTimeout);
         this.setAttribute('class', 'invalid-tile');
         removeAllListeners();
         const timeout = await new Promise(resolve => setTimeout(()=>{
-            clearTimeout(boardTimeout);
             newBoard(3);
         }, 2000));
     }
@@ -164,8 +164,8 @@ function tileInteraction(){
     const mutationCallback = (mutationsList, observer)=>{
         for(const mutation of mutationsList){
             if(mutation.type == "attributes"){
-                if((mutation.target.id == el[el.length-1].id) && (mutation.target.className === 'marked-tile')){
-                    clearTimeout(boardTimeout);
+                if(mutation.target.className === 'marked-tile'){
+                    clearInterval(boardTimeout);
                     newBoard(2);
                 }
             }
@@ -173,11 +173,19 @@ function tileInteraction(){
     }
 
     const observer = new MutationObserver(mutationCallback);
-    for(const element of el){
-        observer.observe(element, mutationConfig);
-    }
+    observer.observe(el[el.length-1], mutationConfig);
 
-    boardTimeout = setTimeout(()=>{
-        newBoard(4);
-    }, 6000);
+    const timer = document.createElement('p');
+    timer.setAttribute('class', 'timer');
+    document.getElementById('timer-container').appendChild(timer);
+
+    var ms = 0;
+    boardTimeout = setInterval(async ()=>{
+        if(ms === 6000){
+            clearInterval(boardTimeout);
+            newBoard(4);
+        }
+        timer.innerText = (6 - (ms/1000)).toFixed(1);
+        ms+=100;
+    }, 100);
 }

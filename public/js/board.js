@@ -10,7 +10,11 @@ function hideNumbers(){
     });
 }
 
-async function clearBoard(){
+function clearBoard(){
+    const timer = document.getElementById('timer-container');
+    while (timer.firstChild) {
+        timer.removeChild(timer.lastChild);
+    }
     const board = document.getElementById('hack-board');
     while (board.firstChild) {
         board.removeChild(board.lastChild);

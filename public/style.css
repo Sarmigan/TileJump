@@ -77,6 +77,22 @@ body {
     user-select: none;
 }
 
+#timer-container {
+    margin: auto;
+    margin-top: 20px;
+    width: 840px;
+    height: 100px;
+    align-items: center;
+}
+
+.timer {
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Roboto Mono', monospace;
+    color: #fff;
+    user-select: none;
+}
+
 @keyframes blinking {
     50% {
       background-color: #119822;

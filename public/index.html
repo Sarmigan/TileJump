@@ -11,10 +11,11 @@
 </head>
 <body>
     <div id="hack-board"></div>
+    <div id="timer-container"></div>
     <script>
         var socket = io(); 
         async function newBoard(boardType){
-            const clear = await clearBoard();
+            clearBoard();
             createIntro(boardType);
             socket.emit('req-grid');
         }
