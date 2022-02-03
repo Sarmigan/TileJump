@@ -9,10 +9,14 @@ const server = http.createServer(app);
 const io = socketio(server);
 const hack = require('./grid');
 
-app.use(express.static(path.join(__dirname, '/../public')));
+app.use(express.static(path.resolve("./public")));
 
-app.get('/',()=>{
-    res.sendFile('index');
+app.get('/',(req, res)=>{
+    res.sendFile(path.resolve("./public") + '/index.html');
+})
+
+app.get('/grid',(req, res)=>{
+    res.sendFile(path.resolve("./public") + '/grid.html');
 })
 
 app.all('*',(req,res)=>{

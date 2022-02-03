@@ -22,22 +22,56 @@ function clearBoard(){
     currentTile = [1, 0];
 }
 
-function createIntro(boardType){
+function retryClick(retryText){
+    return new Promise(function (resolve, reject) {
+      retryText.addEventListener('click', function () {
+        resolve();
+      });
+    });
+}
+
+async function createIntro(boardType){
     const board = document.getElementById('hack-board');
-    const text = document.createElement('p');
-    text.setAttribute('class', 'intro-text');
+    const introContainer = document.createElement('div');
+    introContainer.setAttribute('class', 'intro-container');
+    board.appendChild(introContainer);
+    const introText = document.createElement('div');
+    introText.setAttribute('class', 'intro-text');
 
     if(boardType == 1){
-        text.innerText = 'AWAITING SERVER CONNECTION';
+        introText.innerText = 'AWAITING SERVER CONNECTION';
+        introContainer.appendChild(introText);
     } else if(boardType == 2){
-        text.innerHTML = 'SOLVED<br/>AWAITING SERVER CONNECTION';
+        introText.innerHTML = 'SOLVED<br/>SERVER CONNECTION GRANTED';
+        const retryText = document.createElement('a');
+        retryText.innerText = 'RETRY';
+        const selectionContainer = document.createElement('div');
+        selectionContainer.setAttribute('class', 'selection-container');
+        introContainer.appendChild(introText);
+        introContainer.appendChild(selectionContainer);
+        selectionContainer.appendChild(retryText);
+        await retryClick(retryText);
     } else if(boardType == 3){
-        text.innerHTML = 'FAILED<br/>AWAITING SERVER CONNECTION';
+        introText.innerHTML = 'FAILED<br/>SERVER CONNECTION REFUSED';
+        const retryText = document.createElement('a');
+        retryText.innerText = 'RETRY';
+        const selectionContainer = document.createElement('div');
+        selectionContainer.setAttribute('class', 'selection-container');
+        introContainer.appendChild(introText);
+        introContainer.appendChild(selectionContainer);
+        selectionContainer.appendChild(retryText);
+        await retryClick(retryText);
     } else if(boardType == 4){
-        text.innerHTML = 'TIMED OUT<br/>AWAITING SERVER CONNECTION';
+        introText.innerHTML = 'TIMED OUT<br/>SERVER CONNECTION REFUSED';
+        const retryText = document.createElement('a');
+        retryText.innerText = 'RETRY';
+        const selectionContainer = document.createElement('div');
+        selectionContainer.setAttribute('class', 'selection-container');
+        introContainer.appendChild(introText);
+        introContainer.appendChild(selectionContainer);
+        selectionContainer.appendChild(retryText);
+        await retryClick(retryText);
     }
-
-    board.appendChild(text);
 }
 
 function createBoard(grid){

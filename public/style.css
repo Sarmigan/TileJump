@@ -4,12 +4,61 @@ body {
     background-color: #111111;
 }
 
-.intro-text {  
+h1 {
+    font-size: 72px;
+    font-family: 'Roboto Mono', monospace;
+    color: #fff;
+    text-align: center;
+    user-select: none;
+    margin-bottom: 100px;
+}
+
+a {
     font-size: 36px;
     font-family: 'Roboto Mono', monospace;
     color: #fff;
     text-align: center;
-    line-height: 100px;
+    user-select: none;
+    text-decoration: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 8px;
+    padding-left: 8px;
+    cursor: pointer;
+    margin: auto;
+}
+
+a:hover {
+    border: #fff;
+    border-style: solid;
+    border-width: 3px;
+    transition: 0.1s;
+}
+
+.selection-container {
+    width: 500px;
+    height: 250px;
+    margin: auto;
+    margin-top: 200px;
+    text-align: center;
+}
+
+.intro-container {
+    width: 840px;
+    height: 840px;
+    margin: auto;
+    text-align: center;
+}
+
+.intro-text {
+    margin: auto;
+    margin-top: 200px;
+    font-size: 36px;
+    font-family: 'Roboto Mono', monospace;
+    color: #fff;
+    text-align: center;
+    align-content: center;
+    user-select: none;
 }
 
 #hack-board {
@@ -81,13 +130,13 @@ body {
     margin: auto;
     margin-top: 20px;
     width: 840px;
-    height: 100px;
+    height: 26px;
     align-items: center;
 }
 
 .timer {
     text-align: center;
-    font-size: 24px;
+    font-size: 36px;
     font-family: 'Roboto Mono', monospace;
     color: #fff;
     user-select: none;
@@ -97,4 +146,4 @@ body {
     50% {
       background-color: #119822;
     }
-  }
+}
