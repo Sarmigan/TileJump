@@ -1,6 +1,7 @@
 var el = [];
 var tiles = [];
 var boardTimeout;
+var score = 0;
 
 function removeAllListeners(){
     el.forEach(element => {
@@ -26,7 +27,7 @@ const tileClick = async function (){
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
             const timeout = await new Promise(resolve => setTimeout(()=>{
-                newBoard(3);
+                newBoard(3, true);
             }, 2000));
             return;
         }
@@ -53,7 +54,7 @@ const tileClick = async function (){
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
             const timeout = await new Promise(resolve => setTimeout(()=>{
-                newBoard(3);
+                newBoard(3, true);
             }, 2000));
         }
     } else if(arrayEquals(targetTile, [currentTile[0]-currentSkip, currentTile[1]])){
@@ -78,7 +79,7 @@ const tileClick = async function (){
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
             const timeout = await new Promise(resolve => setTimeout(()=>{
-                newBoard(3);
+                newBoard(3, true);
             }, 2000));
         }
     } else if(arrayEquals(targetTile, [currentTile[0], currentTile[1]+currentSkip])){
@@ -103,7 +104,7 @@ const tileClick = async function (){
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
             const timeout = await new Promise(resolve => setTimeout(()=>{
-                newBoard(3);
+                newBoard(3, true);
             }, 2000));
         }
     } else if(arrayEquals(targetTile, [currentTile[0], currentTile[1]-currentSkip])){
@@ -128,7 +129,7 @@ const tileClick = async function (){
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
             const timeout = await new Promise(resolve => setTimeout(()=>{
-                newBoard(3);
+                newBoard(3, true);
             }, 2000));
         }
     } else {
@@ -136,7 +137,7 @@ const tileClick = async function (){
         this.setAttribute('class', 'invalid-tile');
         removeAllListeners();
         const timeout = await new Promise(resolve => setTimeout(()=>{
-            newBoard(3);
+            newBoard(3, true);
         }, 2000));
     }
 }
@@ -167,8 +168,9 @@ function tileInteraction(){
                 if(mutation.target.className === 'marked-tile'){
                     clearInterval(boardTimeout);
                     removeAllListeners();
+                    score = ms;
                     const timeout = await new Promise(resolve => setTimeout(()=>{
-                        newBoard(2);
+                        newBoard(2, false);
                     }, 2000));
                 }
             }
@@ -186,7 +188,7 @@ function tileInteraction(){
     boardTimeout = setInterval(async ()=>{
         if(ms === 6000){
             clearInterval(boardTimeout);
-            newBoard(4);
+            newBoard(4, true);
         }
         timer.innerText = (6 - (ms/1000)).toFixed(1);
         ms+=100;

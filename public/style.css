@@ -61,6 +61,14 @@ a:hover {
     user-select: none;
 }
 
+#score-container {
+    text-align: center;
+    font-size: 28px;
+    font-family: 'Roboto Mono', monospace;
+    color: #fff;
+    user-select: none;
+}
+
 #hack-board {
     margin: auto;
     margin-top: 20px;

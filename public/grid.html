@@ -10,13 +10,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="score-container"></div>
     <div id="hack-board"></div>
     <div id="timer-container"></div>
     <script>
         var socket = io(); 
-        async function newBoard(boardType){
+        async function newBoard(boardType, isOver){
             clearBoard();
             await createIntro(boardType);
+            if(isOver){
+                score = 0;
+            }
             if(boardType == 1){
                 const timeout = await new Promise(resolve => setTimeout(()=>{
                     socket.emit('req-grid');
@@ -39,7 +43,7 @@
             }, 6000));
         });
         
-        newBoard(1);
+        newBoard(1, false);
     </script>
 </body>
 </html>

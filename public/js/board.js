@@ -11,6 +11,8 @@ function hideNumbers(){
 }
 
 function clearBoard(){
+    const scoreContainer = document.getElementById('score-container');
+    scoreContainer.innerText = `Score: ${score}`;
     const timer = document.getElementById('timer-container');
     while (timer.firstChild) {
         timer.removeChild(timer.lastChild);
@@ -44,7 +46,7 @@ async function createIntro(boardType){
     } else if(boardType == 2){
         introText.innerHTML = 'SOLVED<br/>SERVER CONNECTION GRANTED';
         const retryText = document.createElement('a');
-        retryText.innerText = 'RETRY';
+        retryText.innerText = 'CONTINUE';
         const selectionContainer = document.createElement('div');
         selectionContainer.setAttribute('class', 'selection-container');
         introContainer.appendChild(introText);
