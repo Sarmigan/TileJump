@@ -168,7 +168,7 @@ function tileInteraction(){
                 if(mutation.target.className === 'marked-tile'){
                     clearInterval(boardTimeout);
                     removeAllListeners();
-                    score = ms;
+                    score += ms;
                     const timeout = await new Promise(resolve => setTimeout(()=>{
                         newBoard(2, false);
                     }, 2000));
