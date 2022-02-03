@@ -44,8 +44,8 @@ a:hover {
 }
 
 .intro-container {
-    width: 840px;
-    height: 840px;
+    width: 756px;
+    height: 756px;
     margin: auto;
     text-align: center;
 }
@@ -64,8 +64,8 @@ a:hover {
 #hack-board {
     margin: auto;
     margin-top: 20px;
-    width: 840px;
-    height: 840px;
+    width: 756px;
+    height: 756px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -76,34 +76,34 @@ a:hover {
 }
 
 .tile, .crossed-tile {
-    height: 100px;
-    width: 100px;
-    margin: 10px 10px;
+    height: 90px;
+    width: 90px;
+    margin: 9px 9px;
     background-color: #119822;
     cursor: pointer;
 }
 
 .marked-tile-blinking {
-    height: 100px;
-    width: 100px;
-    margin: 10px 10px;
+    height: 90px;
+    width: 90px;
+    margin: 9px 9px;
     background-color: #7be41a;
     cursor: pointer;
     animation: blinking 1s linear infinite;
 }
 
 .marked-tile {
-    height: 100px;
-    width: 100px;
-    margin: 10px 10px;
+    height: 90px;
+    width: 90px;
+    margin: 9px 9px;
     background-color: #7be41a;
     cursor: pointer;
 }
 
 .invalid-tile {
-    height: 100px;
-    width: 100px;
-    margin: 10px 10px;
+    height: 90px;
+    width: 90px;
+    margin: 9px 9px;
     background-color: #cf1111;
     cursor: pointer;
 }
@@ -129,14 +129,14 @@ a:hover {
 #timer-container {
     margin: auto;
     margin-top: 20px;
-    width: 840px;
+    width: 756px;
     height: 26px;
     align-items: center;
 }
 
 .timer {
     text-align: center;
-    font-size: 36px;
+    font-size: 28px;
     font-family: 'Roboto Mono', monospace;
     color: #fff;
     user-select: none;

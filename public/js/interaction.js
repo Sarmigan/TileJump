@@ -161,12 +161,15 @@ function tileInteraction(){
     const endTile = document.getElementById(el[el.length - 1].id);
     const mutationConfig = { attributes: true, childList: false, subtree: false };
     
-    const mutationCallback = (mutationsList, observer)=>{
+    const mutationCallback = async (mutationsList, observer)=>{
         for(const mutation of mutationsList){
             if(mutation.type == "attributes"){
                 if(mutation.target.className === 'marked-tile'){
                     clearInterval(boardTimeout);
-                    newBoard(2);
+                    removeAllListeners();
+                    const timeout = await new Promise(resolve => setTimeout(()=>{
+                        newBoard(2);
+                    }, 2000));
                 }
             }
         }
