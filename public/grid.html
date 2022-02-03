@@ -22,7 +22,11 @@
                     socket.emit('req-grid');
                 }, 2000));
             } else{
-                socket.emit('req-grid');
+                clearBoard();
+                await createIntro(1);
+                const timeout = await new Promise(resolve => setTimeout(()=>{
+                    socket.emit('req-grid');
+                }, 2000));
             }
         }
         

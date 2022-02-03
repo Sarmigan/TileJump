@@ -20,7 +20,7 @@ app.get('/grid',(req, res)=>{
 })
 
 app.all('*',(req,res)=>{
-    res.status(404).send('404');
+    res.status(404).sendFile(path.resolve("./public") + '/404.html');
 });
 
 io.on('connection', socket =>{
