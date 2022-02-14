@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js" integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        #hack-board{
+            margin: auto;
+            margin-top: 20px;
+            width: 756px;
+            height: 756px;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            background-color: #2b2c2b;
+            border-radius: 5px;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .tile {
+            height: 90px;
+            width: 90px;
+            margin: 9px 9px;
+            background-color: #119822;
+            cursor: pointer;
+            font-size: 36px;
+            font-family: 'Roboto Mono', monospace;
+            color: #fff;
+            text-align: center;
+            user-select: none;
+            text-decoration: none;
+            line-height: 75px;
+        }
+    </style>
+</head>
+<body>
+    <div id="hack-board"></div>
+    <script>
+        var socket = io();
+
+        socket.emit('req-grid', {
+                        endPoint: [6, 6],
+                        rowSize: 7,
+                        colSize: 7,
+                        startCount: 4
+                    });
+        socket.on('res-grid', data=>{
+            updateBoard(data.grid);
+        });
+    </script>
+</body>
+</html>

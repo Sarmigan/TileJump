@@ -1,6 +1,6 @@
 const rowSize = 7;
 const colSize = 7;
-var currentTile = [1, 0];
+var currentTile = [[1, 0], [0, 1], [0, 5]];
 
 function hideNumbers(){
     const numbers = Array.from(document.getElementsByClassName('number'));
@@ -21,7 +21,7 @@ function clearBoard(){
     while (board.firstChild) {
         board.removeChild(board.lastChild);
     }
-    currentTile = [1, 0];
+    currentTile = [[1, 0], [0, 1], [0, 5]];
 }
 
 function retryClick(retryText){
@@ -81,7 +81,13 @@ function createBoard(grid){
 
     for(let i = 0; i<rowSize; i++){
         for(let j = 0; j<colSize; j++){
-            if(i==currentTile[0] & j==currentTile[1]){
+            var isStart = false;
+            currentTile.forEach(element => {
+                if(i==element[0] & j==element[1]){
+                    isStart = true;
+                }
+            });
+            if(isStart){
                 const tile = document.createElement('div');
                 tile.setAttribute('class', 'marked-tile-blinking');
                 tile.setAttribute('id', `${i}${j}`);
@@ -90,7 +96,9 @@ function createBoard(grid){
                 number.innerHTML = grid[i][j];
                 tile.appendChild(number);
                 board.appendChild(tile);
-            } else{
+                isStart = false;
+            }
+            else{
                 const tile = document.createElement('div');
                 tile.setAttribute('class', 'tile');
                 tile.setAttribute('id', `${i}${j}`);

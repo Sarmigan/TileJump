@@ -14,117 +14,130 @@ function arrayEquals(x, y) {
 }
 
 const tileClick = async function (){
-    //LEFT REMOVES MARKED TILE
     var targetTile = this.id.toString().split('').map(digit => parseInt(digit, 10));
-    var currentSkip = parseInt(tiles[currentTile[0]][currentTile[1]].innerText);
-    if(document.getElementById(tiles[currentTile[0]][currentTile[1]].id).className == 'tile'){
-        if(arrayEquals(targetTile, [currentTile[0], currentTile[1]])){
-            this.setAttribute('class', 'marked-tile');
-            return;
-        }
-        else{
-            clearInterval(boardTimeout);
-            this.setAttribute('class', 'invalid-tile');
-            removeAllListeners();
-            const timeout = await new Promise(resolve => setTimeout(()=>{
-                newBoard(3, true);
-            }, 2000));
-            return;
-        }
-    }
-    else if(arrayEquals(targetTile, [currentTile[0]+currentSkip, currentTile[1]])){
-        var isPathBlocked = false;
-        for (var i = currentTile[0]+currentSkip; i>currentTile[0]; i--)
-        {
-            var tile = document.getElementById(tiles[i][currentTile[1]].id);
-            if(tile.className == 'crossed-tile' || tile.className == 'marked-tile'){
-                isPathBlocked = true;
+    
+    for(var i=0; i<currentTile.length; i++){
+        console.log(currentTile);
+        console.log(tiles[currentTile[i][0]][currentTile[i][1]]);
+        var currentSkip = parseInt(tiles[currentTile[i][0]][currentTile[i][1]].innerText);
+
+        if(document.getElementById(tiles[currentTile[i][0]][currentTile[i][1]].id).className == 'tile'){
+            if(arrayEquals(targetTile, [currentTile[i][0], currentTile[i][1]])){
+                this.setAttribute('class', 'marked-tile');
+                currentTile = [currentTile[i]];
+                return;
+            }
+            else if(currentTile.length == i+1){
+                clearInterval(boardTimeout);
+                this.setAttribute('class', 'invalid-tile');
+                removeAllListeners();
+                const timeout = await new Promise(resolve => setTimeout(()=>{
+                    newBoard(3, true);
+                }, 2000));
+                return;
             }
         }
-        if(!isPathBlocked){
-            for (var i = currentTile[0]+1; i<currentTile[0]+currentSkip; i++)
+        else if(arrayEquals(targetTile, [currentTile[i][0]+currentSkip, currentTile[i][1]])){
+            var isPathBlocked = false;
+            for (var j = currentTile[i][0]+currentSkip; j>currentTile[i][0]; j--)
             {
-                var tile = document.getElementById(tiles[i][currentTile[1]].id);
-                tile.setAttribute('class', 'crossed-tile');
+                var tile = document.getElementById(tiles[j][currentTile[i][1]].id);
+                if(tile.className == 'crossed-tile' || tile.className == 'marked-tile'){
+                    isPathBlocked = true;
+                }
             }
-            currentTile = targetTile;
-            this.setAttribute('class', 'marked-tile');
-        } else{
-            clearInterval(boardTimeout);
-            this.setAttribute('class', 'invalid-tile');
-            removeAllListeners();
-            const timeout = await new Promise(resolve => setTimeout(()=>{
-                newBoard(3, true);
-            }, 2000));
-        }
-    } else if(arrayEquals(targetTile, [currentTile[0]-currentSkip, currentTile[1]])){
-        var isPathBlocked = false;
-        for (var i = currentTile[0]-currentSkip; i<currentTile[0]; i++)
-        {
-            var tile = document.getElementById(tiles[i][currentTile[1]].id);
-            if(tile.className == 'crossed-tile' || tile.className == 'marked-tile'){
-                isPathBlocked = true;
+            if(!isPathBlocked){
+                for (var j = currentTile[i][0]+1; j<currentTile[i][0]+currentSkip; j++)
+                {
+                    var tile = document.getElementById(tiles[j][currentTile[i][1]].id);
+                    tile.setAttribute('class', 'crossed-tile');
+                }
+                currentTile = [targetTile];
+                this.setAttribute('class', 'marked-tile');
+            } else if(currentTile.length == i+1){
+                clearInterval(boardTimeout);
+                this.setAttribute('class', 'invalid-tile');
+                removeAllListeners();
+                const timeout = await new Promise(resolve => setTimeout(()=>{
+                    newBoard(3, true);
+                }, 2000));
             }
-        }
-        if(!isPathBlocked){
-            for (var i = currentTile[0]+1; i>currentTile[0]+currentSkip; i--)
+        } else if(arrayEquals(targetTile, [currentTile[i][0]-currentSkip, currentTile[i][1]])){
+            var isPathBlocked = false;
+            for (var j = currentTile[i][0]-currentSkip; i<currentTile[i][0]; j++)
             {
-                var tile = document.getElementById(tiles[i][currentTile[1]].id);
-                tile.setAttribute('class', 'crossed-tile');
+                var tile = document.getElementById(tiles[j][currentTile[i][1]].id);
+                if(tile.className == 'crossed-tile' || tile.className == 'marked-tile'){
+                    isPathBlocked = true;
+                }
             }
-            currentTile = targetTile;
-            this.setAttribute('class', 'marked-tile');
-        } else{
-            clearInterval(boardTimeout);
-            this.setAttribute('class', 'invalid-tile');
-            removeAllListeners();
-            const timeout = await new Promise(resolve => setTimeout(()=>{
-                newBoard(3, true);
-            }, 2000));
-        }
-    } else if(arrayEquals(targetTile, [currentTile[0], currentTile[1]+currentSkip])){
-        var isPathBlocked = false;
-        for (var i = currentTile[1]+currentSkip; i>currentTile[1]; i--)
-        {
-            var tile = document.getElementById(tiles[currentTile[0]][i].id);
-            if(tile.className == 'crossed-tile' || tile.className == 'marked-tile'){
-                isPathBlocked = true;
+            if(!isPathBlocked){
+                for (var j = currentTile[i][0]+1; j>currentTile[i][0]+currentSkip; j--)
+                {
+                    var tile = document.getElementById(tiles[j][currentTile[i][1]].id);
+                    tile.setAttribute('class', 'crossed-tile');
+                }
+                currentTile = [targetTile];
+                this.setAttribute('class', 'marked-tile');
+            } else if(currentTile.length == i+1){
+                clearInterval(boardTimeout);
+                this.setAttribute('class', 'invalid-tile');
+                removeAllListeners();
+                const timeout = await new Promise(resolve => setTimeout(()=>{
+                    newBoard(3, true);
+                }, 2000));
             }
-        }
-        if(!isPathBlocked){
-            for (var i = currentTile[1]+1; i<currentTile[1]+currentSkip; i++)
+        } else if(arrayEquals(targetTile, [currentTile[i][0], currentTile[i][1]+currentSkip])){
+            var isPathBlocked = false;
+            for (var j = currentTile[i][1]+currentSkip; j>currentTile[i][1]; j--)
             {
-                var tile = document.getElementById(tiles[currentTile[0]][i].id);
-                tile.setAttribute('class', 'crossed-tile');
+                var tile = document.getElementById(tiles[currentTile[i][0]][j].id);
+                if(tile.className == 'crossed-tile' || tile.className == 'marked-tile'){
+                    isPathBlocked = true;
+                }
             }
-            currentTile = targetTile;
-            this.setAttribute('class', 'marked-tile');
-        } else {
-            clearInterval(boardTimeout);
-            this.setAttribute('class', 'invalid-tile');
-            removeAllListeners();
-            const timeout = await new Promise(resolve => setTimeout(()=>{
-                newBoard(3, true);
-            }, 2000));
-        }
-    } else if(arrayEquals(targetTile, [currentTile[0], currentTile[1]-currentSkip])){
-        var isPathBlocked = false;
-        for (var i = currentTile[1]-currentSkip; i<currentTile[1]; i++)
-        {
-            var tile = document.getElementById(tiles[currentTile[0]][i].id);
-            if(tile.className == 'crossed-tile' || tile.className == 'marked-tile'){
-                isPathBlocked = true;
+            if(!isPathBlocked){
+                for (var j = currentTile[i][1]+1; j<currentTile[i][1]+currentSkip; j++)
+                {
+                    var tile = document.getElementById(tiles[currentTile[i][0]][j].id);
+                    tile.setAttribute('class', 'crossed-tile');
+                }
+                currentTile = [targetTile];
+                this.setAttribute('class', 'marked-tile');
+            } else if(currentTile.length == i+1){
+                clearInterval(boardTimeout);
+                this.setAttribute('class', 'invalid-tile');
+                removeAllListeners();
+                const timeout = await new Promise(resolve => setTimeout(()=>{
+                    newBoard(3, true);
+                }, 2000));
             }
-        }
-        if(!isPathBlocked){
-            for (var i = currentTile[1]-1; i>currentTile[1]-currentSkip; i--)
+        } else if(arrayEquals(targetTile, [currentTile[i][0], currentTile[i][1]-currentSkip])){
+            var isPathBlocked = false;
+            for (var j = currentTile[i][1]-currentSkip; j<currentTile[i][1]; j++)
             {
-                var tile = document.getElementById(tiles[currentTile[0]][i].id);
-                tile.setAttribute('class', 'crossed-tile');
+                var tile = document.getElementById(tiles[currentTile[i][0]][j].id);
+                if(tile.className == 'crossed-tile' || tile.className == 'marked-tile'){
+                    isPathBlocked = true;
+                }
             }
-            currentTile = targetTile;
-            this.setAttribute('class', 'marked-tile');
-        } else{
+            if(!isPathBlocked){
+                for (var j = currentTile[i][1]-1; j>currentTile[i][1]-currentSkip; j--)
+                {
+                    var tile = document.getElementById(tiles[currentTile[i][0]][j].id);
+                    tile.setAttribute('class', 'crossed-tile');
+                }
+                currentTile = [targetTile];
+                this.setAttribute('class', 'marked-tile');
+            } else if(currentTile.length == i+1){
+                clearInterval(boardTimeout);
+                this.setAttribute('class', 'invalid-tile');
+                removeAllListeners();
+                const timeout = await new Promise(resolve => setTimeout(()=>{
+                    newBoard(3, true);
+                }, 2000));
+            }
+        } else if(currentTile.length == i+1) {
             clearInterval(boardTimeout);
             this.setAttribute('class', 'invalid-tile');
             removeAllListeners();
@@ -132,13 +145,6 @@ const tileClick = async function (){
                 newBoard(3, true);
             }, 2000));
         }
-    } else {
-        clearInterval(boardTimeout);
-        this.setAttribute('class', 'invalid-tile');
-        removeAllListeners();
-        const timeout = await new Promise(resolve => setTimeout(()=>{
-            newBoard(3, true);
-        }, 2000));
     }
 }
 
@@ -156,8 +162,9 @@ function tileInteraction(){
         tiles.push(temp);
     }
 
-    var startTile = document.getElementById(tiles[currentTile[0]][currentTile[1]].id);
-    startTile.setAttribute('class', 'tile');
+    currentTile.forEach(element => {
+        document.getElementById(tiles[element[0]][element[1]].id).setAttribute('class', 'tile');
+    });
 
     const endTile = document.getElementById(el[el.length - 1].id);
     const mutationConfig = { attributes: true, childList: false, subtree: false };
